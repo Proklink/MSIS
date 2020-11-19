@@ -1,0 +1,28 @@
+.globl __start
+
+.text
+__start:
+	li x4, 0x09000000
+        lw x1, 0(x4)
+        li x2, 3   
+        li x3, 0 	
+        li x5, 0 	
+        li x6, 10	
+        li x7, 0	
+    
+    #srli x2, x1, 2
+    #add  x2, x2, x1
+
+loop:
+	and x3, x2, x1	#c = a & b;
+        bne x3, x2, con	#if (c != b)
+  	addi x7, x7, 1	#count = count + 1;
+con:
+	slli x2, x2, 1	 #b = b << 1;
+  	addi x5, x5, 1 	 #start = start + 1;
+        blt x5, x6, loop #if (start < end)
+        j Exit
+  
+Exit:
+	tail Exit
+    
